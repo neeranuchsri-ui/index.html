@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจัดการสารสนเทศภายในฝ่ายวิศวกรรม | บริษัท โกลเด้นไลน์ บิสซิเนส จำกัด</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; color: #333; }
+        .hero-section { background: linear-gradient(135deg, #1e3d59, #17b978); color: white; padding: 30px 0; }
+        .nav-tabs .nav-link { color: #495057; font-weight: bold; border: none; padding: 12px 20px; font-size: 0.95rem; cursor: pointer; }
+        .nav-tabs .nav-link.active { color: #1e3d59; border-bottom: 3px solid #17b978; background: none; }
+        .page-content { background: white; padding: 30px; border-radius: 0 0 8px 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); min-height: 550px; }
+        
+        /* สีกะงาน */
+        .badge-shift-day { background-color: #f6c23e; color: #333; }
+        .badge-shift-evening { background-color: #fd7e14; color: white; }
+        .badge-shift-night { background-color: #6f42c1; color: white; }
+        
+        /* สีส่วนหัวแต่ละแผนก */
+        .header-management { background-color: #1e3d59; color: white; }
+        .header-high { background-color: #4e73df; color: white; }
+        .header-low { background-color: #36b9cc; color: white; }
+        .header-cooling { background-color: #1cc88a; color: white; }
+        .header-maintenance { background-color: #f6c23e; color: #333; }
+        .header-boiler { background-color: #e74c3c; color: white; }
+        .header-store { background-color: #858796; color: white; }
+        .header-office { background-color: #e83e8c; color: white; }
+
+        .news-card { border: 1px solid #e3e6f0; border-radius: 8px; background: #fff; transition: all 0.2s; }
+        .news-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .duty-card { border-left: 4px solid #17b978; background-color: #f8fafc; }
+        .location-card { border-left: 4px solid #1e3d59; background-color: #f8fafc; }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Banner -->
+    <header class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-6 fw-bold"><i class="fa-solid fa-gears me-2"></i>ระบบจัดการสารสนเทศภายในฝ่ายวิศวกรรม</h1>
+            <p class="lead mb-0">บริษัท โกลเด้นไลน์ บิสซิเนส จำกัด (Golden Line Business Co., Ltd.)</p>
+        </div>
+    </header>
+
+    <!-- เมนูแท็บ navigation (5 หน้าหลัก) -->
+    <div class="bg-white shadow-sm sticky-top">
+        <div class="container">
+            <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="page1-tab" data-bs-toggle="tab" data-bs-target="#page1" type="button" role="tab" aria-controls="page1" aria-selected="true">
+                        <i class="fa-solid fa-bullhorn me-2 text-danger"></i>หน้าที่ 1: ข่าวประชาสัมพันธ์
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="page2-tab" data-bs-toggle="tab" data-bs-target="#page2" type="button" role="tab" aria-controls="page2" aria-selected="false">
+                        <i class="fa-solid fa-sitemap me-2 text-primary"></i>หน้าที่ 2: ผังบุคลากรและตารางเวร
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="page3-tab" data-bs-toggle="tab" data-bs-target="#page3" type="button" role="tab" aria-controls="page3" aria-selected="false">
+                        <i class="fa-solid fa-clipboard-list me-2 text-warning"></i>หน้าที่ 3: ขอบข่ายภาระงานแต่ละแผนก
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="page4-tab" data-bs-toggle="tab" data-bs-target="#page4" type="button" role="tab" aria-controls="page4" aria-selected="false">
+                        <i class="fa-solid fa-address-book me-2 text-success"></i>หน้าที่ 4: สมุดโทรศัพท์ติดต่อภายใน
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="page5-tab" data-bs-toggle="tab" data-bs-target="#page5" type="button" role="tab" aria-controls="page5" aria-selected="false">
+                        <i class="fa-solid fa-location-dot me-2 text-info"></i>หน้าที่ 5: ที่ตั้งและที่อยู่สถานประกอบการ
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- พื้นที่แสดงเนื้อหาหลัก -->
+    <div class="container my-4">
+        <div class="tab-content" id="myTabContent">
+            
+            <!-- ================= หน้าที่ 1: ข่าวประชาสัมพันธ์ ================= -->
+            <div class="tab-pane fade show active" id="page1" role="tabpanel" aria-labelledby="page1-tab">
+                <div class="page-content">
+                    <div class="border-bottom pb-3 mb-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <div>
+                            <h4 class="fw-bold text-dark mb-0"><i class="fa-solid fa-newspaper me-2 text-danger"></i>กระดานประกาศข่าวสารประชาสัมพันธ์</h4>
+                            <p class="text-muted small mb-0">ข้อมูลแจ้งเตือน นโยบายความปลอดภัย และกิจกรรมภายในฝ่ายวิศวกรรม</p>
+                        </div>
+                        <button class="btn btn-danger btn-sm px-3 fw-bold" onclick="openAddNewsModal()"><i class="fa-solid fa-plus me-1"></i>เพิ่มประกาศข่าวสาร</button>
+                    </div>
+
+                    <!-- รายการการ์ดข่าวสาร -->
+                    <div class="row g-3" id="newsListContainer">
+                        <!-- โหลดข้อมูลด้วย JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= หน้าที่ 2: แผนผังบุคลากรและตารางเวรหยุด ================= -->
+            <div class="tab-pane fade" id="page2" role="tabpanel" aria-labelledby="page2-tab">
+                <div class="page-content">
+                    <div class="border-bottom pb-3 mb-4 d-flex justify-content-between align-items-center">
+                        <div>
+                            <h4 class="fw-bold text-dark mb-0"><i class="fa-solid fa-users-gear me-2 text-primary"></i>แผนผังบุคลากร ตารางเวลาปฏิบัติงาน และวันหยุดเวร</h4>
+                            <p class="text-muted small mb-0">แสดงข้อมูลโครงสร้างพนักงานทั้งหมด 63 ท่าน แยกตามแผนก กะงาน และเวรหยุดประจำสัปดาห์</p>
+                        </div>
+                        <span class="badge bg-primary px-3 py-2 fs-6">รวมทั้งหมด 8 แผนกหลัก</span>
+                    </div>
+
+                    <!-- 1. ผู้บริหารฝ่ายวิศวกรรม -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header header-management py-3 text-white">
+                            <h5 class="mb-0 fw-bold"><i class="fa-solid fa-user-tie me-2"></i>ผู้บริหารฝ่ายวิศวกรรม <span class="badge bg-white text-dark rounded-pill ms-2 small">3 ท่าน</span></h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="width: 20%">กะ / เวลาปฏิบัติงาน</th>
+                                            <th style="width: 15%">รหัสพนักงาน</th>
+                                            <th style="width: 25%">ชื่อ - นามสกุล</th>
+                                            <th style="width: 25%">ตำแหน่งหน้างาน</th>
+                                            <th style="width: 15%">วันหยุดเวร</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (08.00-17.00)</span></td><td class="fw-bold">944507</td><td>นายสาโรจน์ รอดปาน</td><td>ผู้ช่วยรองประธานฯ</td><td><span class="badge bg-danger px-3 py-2"><i class="fa-solid fa-calendar-xmark me-1"></i>วันอาทิตย์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (08.00-17.00)</span></td><td class="fw-bold">944494</td><td>นายชนะชัย พลไทยสงค์</td><td>ผู้จัดการฝ่าย Utility</td><td><span class="badge bg-danger px-3 py-2"><i class="fa-solid fa-calendar-xmark me-1"></i>วันเสาร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (09.00-18.00)</span></td><td class="fw-bold">951610</td><td>นายอิงครัตน์ ปิ่นรอด</td><td>ผู้จัดการฝ่ายช่างเทคนิค</td><td><span class="badge bg-danger px-3 py-2"><i class="fa-solid fa-calendar-xmark me-1"></i>วันเสาร์</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. ช่างเทคนิค High -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header header-high py-3 text-white">
+                            <h5 class="mb-0 fw-bold"><i class="fa-solid fa-bolt me-2"></i>ช่างเทคนิค (High) <span class="badge bg-white text-dark rounded-pill ms-2 small">14 ท่าน</span></h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="width: 20%">กะ / เวลาปฏิบัติงาน</th>
+                                            <th style="width: 15%">รหัสพนักงาน</th>
+                                            <th style="width: 25%">ชื่อ - นามสกุล</th>
+                                            <th style="width: 25%">ตำแหน่งหน้างาน</th>
+                                            <th style="width: 15%">วันหยุดเวร</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (06.00-15.00)</span></td><td class="fw-bold">940740</td><td>นายพรไชย มูลเพ็ญ</td><td>หน.แผนก</td><td><span class="badge bg-danger px-3 py-2">วันศุกร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (06.00-15.00)</span></td><td class="fw-bold">948192</td><td>นายขวัญชัย ญวนจิตร</td><td>หน.งาน</td><td><span class="badge bg-danger px-3 py-2">วันเสาร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (06.00-15.00)</span></td><td class="fw-bold">955437</td><td>นายเอกรัฐ เนื้ออ่อน</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันพฤหัสบดี</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (06.00-15.00)</span></td><td class="fw-bold">957665</td><td>นายต่อลาภ ทองสุข</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันอาทิตย์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (06.00-15.00)</span></td><td class="fw-bold">958530</td><td>นายณัชพล ชะเอม</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันพุธ</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-evening w-100 py-2">กะ 2 (15.00-24.00)</span></td><td class="fw-bold">948751</td><td>นายวีรพล อิ่มชื่น</td><td>หน.แผนก</td><td><span class="badge bg-danger px-3 py-2">วันพฤหัสบดี</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-evening w-100 py-2">กะ 2 (15.00-24.00)</span></td><td class="fw-bold">944081</td><td>นายสมผล ธัญญอุดม</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันเสาร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-evening w-100 py-2">กะ 2 (15.00-24.00)</span></td><td class="fw-bold">956150</td><td>นายสหศักดิ์ ทุมนันท์</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันศุกร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-evening w-100 py-2">กะ 2 (15.00-24.00)</span></td><td class="fw-bold">957452</td><td>นายภานุวัฒน์ สมเหล็ก</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันอาทิตย์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-evening w-100 py-2">กะ 2 (15.00-24.00)</span></td><td class="fw-bold">955550</td><td>นายสรวิชญ์ คามกะสบ</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันพุธ</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-night w-100 py-2">กะ 3 (23.00-08.00)</span></td><td class="fw-bold">948224</td><td>นายศุภมงคล ชูนาคา</td><td>หน.งาน</td><td><span class="badge bg-danger px-3 py-2">วันเสาร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-night w-100 py-2">กะ 3 (23.00-08.00)</span></td><td class="fw-bold">954289</td><td>นายธนโชติ ศรีสมุทร</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันอาทิตย์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-night w-100 py-2">กะ 3 (23.00-08.00)</span></td><td class="fw-bold">956047</td><td>นายภูริภัทร พะยุหะ</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันพฤหัสบดี</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-night w-100 py-2">กะ 3 (23.00-08.00)</span></td><td class="fw-bold">958394</td><td>นายณัฐวุฒิ คำมี</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันศุกร์</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. ช่างเทคนิค Low -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header header-low py-3 text-white">
+                            <h5 class="mb-0 fw-bold"><i class="fa-solid fa-screwdriver-wrench me-2"></i>ช่างเทคนิค (Low) <span class="badge bg-white text-dark rounded-pill ms-2 small">15 ท่าน</span></h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="width: 20%">กะ / เวลาปฏิบัติงาน</th>
+                                            <th style="width: 15%">รหัสพนักงาน</th>
+                                            <th style="width: 25%">ชื่อ - นามสกุล</th>
+                                            <th style="width: 25%">ตำแหน่งหน้างาน</th>
+                                            <th style="width: 15%">วันหยุดเวร</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (06.00-15.00)</span></td><td class="fw-bold">944275</td><td>นายพีระพงษ์ จอดนอก</td><td>หน.แผนก</td><td><span class="badge bg-danger px-3 py-2">วันพุธ</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (06.00-15.00)</span></td><td class="fw-bold">948535</td><td>นายศิริศักดิ์ กองทอง</td><td>หน.งาน</td><td><span class="badge bg-danger px-3 py-2">วันศุกร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (06.00-15.00)</span></td><td class="fw-bold">955664</td><td>นายสนทรรศน์ วังคีรี</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันพฤหัสบดี</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (06.00-15.00)</span></td><td class="fw-bold">957121</td><td>นายอัครชัย โยธะคง</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันอาทิตย์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (06.00-15.00)</span></td><td class="fw-bold">957900</td><td>นายภัทรพล สวัสดิ์ขวัญ</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันเสาร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-evening w-100 py-2">กะ 2 (15.00-24.00)</span></td><td class="fw-bold">943969</td><td>นายชวลิต ศรสุรินทร์</td><td>หน.แผนก</td><td><span class="badge bg-danger px-3 py-2">วันพฤหัสบดี</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-evening w-100 py-2">กะ 2 (15.00-24.00)</span></td><td class="fw-bold">955569</td><td>นายศรเพชร คำปาน</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันอาทิตย์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-evening w-100 py-2">กะ 2 (15.00-24.00)</span></td><td class="fw-bold">956726</td><td>นายพูลศักดิ์ มูลเมือง</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันพุธ</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-evening w-100 py-2">กะ 2 (15.00-24.00)</span></td><td class="fw-bold">958447</td><td>นายบัญชา ชิวปรีชา</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันศุกร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-evening w-100 py-2">กะ 2 (15.00-24.00)</span></td><td class="fw-bold">958936</td><td>นายนที คำแอด</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันเสาร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-night w-100 py-2">กะ 3 (23.00-08.00)</span></td><td class="fw-bold">947920</td><td>นายเกรียงศักดิ์ บุญศรี</td><td>หน.งาน</td><td><span class="badge bg-danger px-3 py-2">วันเสาร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-night w-100 py-2">กะ 3 (23.00-08.00)</span></td><td class="fw-bold">951210</td><td>นายธนพงศ์ คงที่อยู่</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันอาทิตย์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-night w-100 py-2">กะ 3 (23.00-08.00)</span></td><td class="fw-bold">955527</td><td>นายศิวกร ถาลายคำ</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันศุกร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-night w-100 py-2">กะ 3 (23.00-08.00)</span></td><td class="fw-bold">957901</td><td>นายจิรวัฒน์ คุณประทุม</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันพฤหัสบดี</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-night w-100 py-2">กะ 3 (23.00-08.00)</span></td><td class="fw-bold">958875</td><td>นายสุรบดี กาโกน</td><td>ช่างเทคนิคปฏิบัติการ</td><td><span class="badge bg-danger px-3 py-2">วันพุธ</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. เครื่องทำความเย็น -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header header-cooling py-3 text-white">
+                            <h5 class="mb-0 fw-bold"><i class="fa-solid fa-snowflake me-2"></i>เครื่องทำความเย็น <span class="badge bg-white text-dark rounded-pill ms-2 small">12 ท่าน</span></h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="width: 20%">กะ / เวลาปฏิบัติงาน</th>
+                                            <th style="width: 15%">รหัสพนักงาน</th>
+                                            <th style="width: 25%">ชื่อ - นามสกุล</th>
+                                            <th style="width: 25%">ตำแหน่งหน้างาน</th>
+                                            <th style="width: 15%">วันหยุดเวร</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (07.00-16.00)</span></td><td class="fw-bold">950601</td><td>นายพรชัย โพธิ์จักร</td><td>หน.แผนก</td><td><span class="badge bg-danger px-3 py-2">วันเสาร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (07.00-16.00)</span></td><td class="fw-bold">940084</td><td>นายวุฒินันท์ พลอยวิลัย</td><td>หน.แผนก</td><td><span class="badge bg-danger px-3 py-2">วันอาทิตย์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (07.00-16.00)</span></td><td class="fw-bold">956727</td><td>นายสาธิต แป้นรอด</td><td>ช่างประจำกลุ่ม</td><td><span class="badge bg-danger px-3 py-2">วันอังคาร</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (07.00-16.00)</span></td><td class="fw-bold">953986</td><td>นายสุรนิชญ์ น้อยใจมั่น</td><td>ช่างประจำกลุ่ม</td><td><span class="badge bg-danger px-3 py-2">วันศุกร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-evening w-100 py-2">กะ 2 (15.00-24.00)</span></td><td class="fw-bold">942192</td><td>นายไตรภพ เปรมพงษ์</td><td>หน.งาน</td><td><span class="badge bg-danger px-3 py-2">วันศุกร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-evening w-100 py-2">กะ 2 (15.00-24.00)</span></td><td class="fw-bold">956426</td><td>นายธนายุทธ อิ่มทองใบ</td><td>ช่างประจำกลุ่ม</td><td><span class="badge bg-danger px-3 py-2">วันพุธ</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-evening w-100 py-2">กะ 2 (15.00-24.00)</span></td><td class="fw-bold">953985</td><td>นายอาทิตย์ ค้ำชู</td><td>ช่างประจำกลุ่ม</td><td><span class="badge bg-danger px-3 py-2">วันอังคาร</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-evening w-100 py-2">กะ 2 (15.00-24.00)</span></td><td class="fw-bold">955552</td><td>นายสหรัฐ ไหล่ทอง</td><td>ช่างประจำกลุ่ม</td><td><span class="badge bg-danger px-3 py-2">วันพฤหัสบดี</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-night w-100 py-2">กะ 3 (23.00-08.00)</span></td><td class="fw-bold">951324</td><td>นายเจตดริน จันทร์ดา</td><td>หน.งาน</td><td><span class="badge bg-danger px-3 py-2">วันอาทิตย์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-night w-100 py-2">กะ 3 (23.00-08.00)</span></td><td class="fw-bold">951613</td><td>นายอดิศักดิ์ บุญยงค์</td><td>ช่างประจำกลุ่ม</td><td><span class="badge bg-danger px-3 py-2">วันพุธ</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-night w-100 py-2">กะ 3 (23.00-08.00)</span></td><td class="fw-bold">956916</td><td>นายสมรักษ์ อยู่เย็น</td><td>ช่างประจำกลุ่ม</td><td><span class="badge bg-danger px-3 py-2">วันพฤหัสบดี</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-night w-100 py-2">กะ 3 (23.00-08.00)</span></td><td class="fw-bold">956048</td><td>นายบัญชา สอนชา</td><td>ช่างประจำกลุ่ม</td><td><span class="badge bg-danger px-3 py-2">วันอังคาร</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. ช่างซ่อมบำรุง / เชื่อม / ไฟฟ้า -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header header-maintenance py-3 text-dark fw-bold">
+                            <h5 class="mb-0 fw-bold"><i class="fa-solid fa-wrench me-2"></i>ช่างซ่อมบำรุง / งานเชื่อม / งานไฟฟ้า <span class="badge bg-dark text-white rounded-pill ms-2 small">8 ท่าน</span></h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="width: 20%">กะ / เวลาปฏิบัติงาน</th>
+                                            <th style="width: 15%">รหัสพนักงาน</th>
+                                            <th style="width: 25%">ชื่อ - นามสกุล</th>
+                                            <th style="width: 25%">ตำแหน่งหน้างาน</th>
+                                            <th style="width: 15%">วันหยุดเวร</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 ชุด 1 (08.00-17.00)</span></td><td class="fw-bold">940380</td><td>นายสุวิทย์ จันทร์กลม</td><td>หน.แผนก (ซ่อมบำรุง)</td><td><span class="badge bg-danger px-3 py-2">วันพฤหัสบดี</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 ชุด 1 (08.00-17.00)</span></td><td class="fw-bold">955348</td><td>นายพิเชษฐ์ ปะติตัง</td><td>ช่างซ่อมบำรุง ชุด 1</td><td><span class="badge bg-danger px-3 py-2">วันเสาร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 ชุด 1 (08.00-17.00)</span></td><td class="fw-bold">957070</td><td>นายวิรุต โสขุมา</td><td>ช่างซ่อมบำรุง ชุด 1</td><td><span class="badge bg-danger px-3 py-2">วันพุธ</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 ชุด 1 (08.00-17.00)</span></td><td class="fw-bold">957967</td><td>นายศราวุธ แหลมครบุรี</td><td>ช่างซ่อมบำรุง ชุด 1</td><td><span class="badge bg-danger px-3 py-2">วันศุกร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 ชุด 2 (08.00-17.00)</span></td><td class="fw-bold">904597</td><td>นายวันชัย จิตร์รักษ์</td><td>หน.งาน (งานเชื่อม)</td><td><span class="badge bg-danger px-3 py-2">วันอาทิตย์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 ชุด 2 (08.00-17.00)</span></td><td class="fw-bold">954523</td><td>นายประวิทย์ ทองปาน</td><td>ช่างเชื่อม ชุด 2</td><td><span class="badge bg-danger px-3 py-2">วันอาทิตย์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 ชุด 3 (08.00-17.00)</span></td><td class="fw-bold">945385</td><td>นายวิระ มีสอน</td><td>หน.งาน (งานไฟฟ้า)</td><td><span class="badge bg-danger px-3 py-2">วันอาทิตย์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 ชุด 3 (08.00-17.00)</span></td><td class="fw-bold">958550</td><td>นายภาณุพงศ์ สีหะสิงห์</td><td>ช่างไฟฟ้า ชุด 3</td><td><span class="badge bg-danger px-3 py-2">วันอังคาร</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. Hot oil & Boiler -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header header-boiler py-3 text-white">
+                            <h5 class="mb-0 fw-bold"><i class="fa-solid fa-fire me-2"></i>Hot oil & Boiler <span class="badge bg-white text-dark rounded-pill ms-2 small">5 ท่าน</span></h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="width: 20%">กะ / เวลาปฏิบัติงาน</th>
+                                            <th style="width: 15%">รหัสพนักงาน</th>
+                                            <th style="width: 25%">ชื่อ - นามสกุล</th>
+                                            <th style="width: 25%">ตำแหน่งหน้างาน</th>
+                                            <th style="width: 15%">วันหยุดเวร</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (07.00-16.00)</span></td><td class="fw-bold">940925</td><td>นายสดใส บุญก่อน</td><td>หน.งาน</td><td><span class="badge bg-danger px-3 py-2">วันจันทร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (08.00-17.00)</span></td><td class="fw-bold">948223</td><td>นายปรุฬห์ แก้วพวง</td><td>หน.แผนก</td><td><span class="badge bg-danger px-3 py-2">วันอาทิตย์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-evening w-100 py-2">กะ 2 (15.00-24.00)</span></td><td class="fw-bold">944983</td><td>นายอุเทน ทองเพชร</td><td>พนักงานประจำตู้ควบคุม</td><td><span class="badge bg-danger px-3 py-2">วันเสาร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-night w-100 py-2">กะ 3 (23.00-08.00)</span></td><td class="fw-bold">940845</td><td>นายขจร วงษ์สิงห์</td><td>หน.งาน</td><td><span class="badge bg-danger px-3 py-2">วันอังคาร</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-night w-100 py-2">กะ 3 (23.00-08.00)</span></td><td class="fw-bold">958876</td><td>นายระวีกร ศรีคล้าย</td><td>พนักงานประจำตู้ควบคุม</td><td><span class="badge bg-danger px-3 py-2">วันศุกร์</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 7. สโตร์กลางฝ่าย -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header header-store py-3 text-white">
+                            <h5 class="mb-0 fw-bold"><i class="fa-solid fa-box-open me-2"></i>สโตร์กลางฝ่ายวิศวกรรม <span class="badge bg-white text-dark rounded-pill ms-2 small">4 ท่าน</span></h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="width: 20%">กะ / เวลาปฏิบัติงาน</th>
+                                            <th style="width: 15%">รหัสพนักงาน</th>
+                                            <th style="width: 25%">ชื่อ - นามสกุล</th>
+                                            <th style="width: 25%">ตำแหน่งหน้างาน</th>
+                                            <th style="width: 15%">วันหยุดเวร</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (06.00-15.00)</span></td><td class="fw-bold">948549</td><td>นายอักนิษฐ์ โสพันธ์</td><td>หน.งาน</td><td><span class="badge bg-danger px-3 py-2">วันเสาร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (08.00-17.00)</span></td><td class="fw-bold">949451</td><td>น.ส.สมฤดี สุฤทธิ์</td><td>หน.แผนก</td><td><span class="badge bg-danger px-3 py-2">วันอาทิตย์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (08.00-17.00)</span></td><td class="fw-bold">948752</td><td>นายศิราวุฒิ ศรีสุข</td><td>เจ้าหน้าที่สโตร์</td><td><span class="badge bg-danger px-3 py-2">วันจันทร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-evening w-100 py-2">กะ 2 (15.00-24.00)</span></td><td class="fw-bold">941615</td><td>นายเพชร จันทร์ด้วง</td><td>เจ้าหน้าที่สโตร์</td><td><span class="badge bg-danger px-3 py-2">วันอังคาร</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 8. ธุรการ & อนุรักษ์พลังงาน -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header header-office py-3 text-white">
+                            <h5 class="mb-0 fw-bold"><i class="fa-solid fa-file-invoice me-2"></i>เจ้าหน้าที่อนุรักษ์พลังงาน & ธุรการ <span class="badge bg-white text-dark rounded-pill ms-2 small">3 ท่าน</span></h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="width: 20%">กะ / เวลาปฏิบัติงาน</th>
+                                            <th style="width: 15%">รหัสพนักงาน</th>
+                                            <th style="width: 25%">ชื่อ - นามสกุล</th>
+                                            <th style="width: 25%">ตำแหน่งหน้างาน</th>
+                                            <th style="width: 15%">วันหยุดเวร</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (08.00-17.00)</span></td><td class="fw-bold">955854</td><td>น.ส.เบญจพร พรมจิ๋ว</td><td>เจ้าหน้าที่ธุรการ/พลังงาน</td><td><span class="badge bg-danger px-3 py-2">วันเสาร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (08.00-17.00)</span></td><td class="fw-bold">957689</td><td>น.ส.นีรนุช ศรีอำขำ</td><td>เจ้าหน้าที่ธุรการ/พลังงาน</td><td><span class="badge bg-danger px-3 py-2">วันจันทร์</span></td></tr>
+                                        <tr><td><span class="badge badge-shift-day w-100 py-2">กะ 1 (08.00-17.00)</span></td><td class="fw-bold">956444</td><td>น.ส.ศลิษา เกตุสุวรรณ์</td><td>เจ้าหน้าที่ธุรการ/พลังงาน</td><td><span class="badge bg-danger px-3 py-2">วันศุกร์</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ================= หน้าที่ 3: ขอบข่ายภาระงานแต่ละแผนก ================= -->
+            <div class="tab-pane fade" id="page3" role="tabpanel" aria-labelledby="page3-tab">
+                <div class="page-content">
+                    <div class="border-bottom pb-3 mb-4">
+                        <h4 class="fw-bold text-dark mb-0"><i class="fa-solid fa-list-check me-2 text-warning"></i>ขอบข่ายหน้าที่และความรับผิดชอบแยกตามแผนก</h4>
+                        <p class="text-muted small mb-0">รายการงานปฏิบัติประจำวันและภารกิจดูแลรักษาเครื่องจักรของแต่ละหน่วยงาน</p>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="card h-100 border-0 shadow-sm duty-card p-3">
+                                <div class="card-body">
+                                    <h5 class="fw-bold text-dark border-bottom pb-2 mb-3"><i class="fa-solid fa-bolt me-2 text-primary"></i>งานช่างเทคนิค High</h5>
+                                    <ul class="text-secondary small mb-0 ps-3">
+                                        <li class="mb-2">เติมน้ำมันลูป Line 2, 3, 5, 7</li>
+                                        <li class="mb-2">ประกอบ Belt Slope และ Belt Pack</li>
+                                        <li class="mb-2">เดรนน้ำมันเกียร์ Spiral Line 2, 3, 5, 7</li>
+                                        <li class="mb-2">เช็คตู้ควมควบคุม Spiral Line 1, 2, 3, 4, 5, 7 และตู้ไฟในไลน์ผลิต</li>
+                                        <li class="mb-2">ตัดต่อ Belt Spiral และเซ็ตเครื่องจักรเตรียมพร้อมผลิต</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100 border-0 shadow-sm duty-card p-3">
+                                <div class="card-body">
+                                    <h5 class="fw-bold text-dark border-bottom pb-2 mb-3"><i class="fa-solid fa-screwdriver-wrench me-2 text-info"></i>งานช่างเทคนิค Low</h5>
+                                    <ul class="text-secondary small mb-0 ps-3">
+                                        <li class="mb-2">เปลี่ยนไกด์รอง Belt Oven 7 ที่ชำรุด</li>
+                                        <li class="mb-2">ตรวจเช็คระบบล็อคเสา Oven 2, 3, 5, 7</li>
+                                        <li class="mb-2">อัดจาระบีลูกปืนโม่ Tumbler ทุกตัว</li>
+                                        <li class="mb-2">ตัด Belt ถั่วงอก ของ Oven 2, 3, 5, 7 ที่เสียรูป</li>
+                                        <li class="mb-2">ประสาน Boiler จุดแก๊ส และล้าง Chamber Dewpoint</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100 border-0 shadow-sm duty-card p-3">
+                                <div class="card-body">
+                                    <h5 class="fw-bold text-dark border-bottom pb-2 mb-3"><i class="fa-solid fa-snowflake me-2 text-success"></i>เครื่องทำความเย็น</h5>
+                                    <ul class="text-secondary small mb-0 ps-3">
+                                        <li class="mb-2">จดบันทึกการทำงานของ Comp และอุณหภูมิห้องเย็น</li>
+                                        <li class="mb-2">บันทึกเครื่องกรองน้ำ RO และเดรนน้ำมันถัง Low</li>
+                                        <li class="mb-2">ล้าง Air ตามแผนกต่างๆ</li>
+                                        <li class="mb-2">เช็คน้ำมันแวคคัมทั้ง 2 ฝั่ง (ทุกๆ 2 สัปดาห์)</li>
+                                        <li class="mb-2">ดูแลระบบน้ำประปาและพัดลมอีแวปชั้น G</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100 border-0 shadow-sm duty-card p-3">
+                                <div class="card-body">
+                                    <h5 class="fw-bold text-dark border-bottom pb-2 mb-3"><i class="fa-solid fa-fire me-2 text-danger"></i>Hot oil & Boiler</h5>
+                                    <ul class="text-secondary small mb-0 ps-3">
+                                        <li class="mb-2">ควบคุมแก๊สออกงาน 4 หัว</li>
+                                        <li class="mb-2">สตาร์ทเครื่อง Hot Oil 3.0, 3.5 ล้าน</li>
+                                        <li class="mb-2">ควบคุมอุณหภูมิและแรงดันน้ำร้อนล้างไลน์ผลิต</li>
+                                        <li class="mb-2">เชื่อมถังน้ำร้อนเตรียมผลิตช่วงเช้า</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- สโตร์กลางฝ่ายวิศวกรรม -->
+                        <div class="col-md-12">
+                            <div class="card border-0 shadow-sm duty-card p-3">
+                                <div class="card-body">
+                                    <h5 class="fw-bold text-dark border-bottom pb-2 mb-3"><i class="fa-solid fa-boxes-stacked me-2 text-secondary"></i>สโตร์กลางฝ่ายวิศวกรรม</h5>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <ul class="text-secondary small mb-0 ps-3">
+                                                <li class="mb-2">ตรวจรับ บันทึก และคัดแยกอะไหล่เครื่องจักร วัสดุอุปกรณ์เข้าคลัง</li>
+                                                <li class="mb-2">จ่ายอะไหล่และอุปกรณ์ตามใบเบิกงานซ่อมบำรุงประจำวัน</li>
+                                                <li class="mb-2">ควบคุมและจัดทำบัญชีสต็อกคงคลังประจำสัปดาห์ / ประจำเดือน</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <ul class="text-secondary small mb-0 ps-3">
+                                                <li class="mb-2">ตรวจสอบระดับ Safety Stock และแจ้งสั่งซื้ออะไหล่จุด ROP</li>
+                                                <li class="mb-2">จัดหมวดหมู่สินค้า วางโค้ด Bin Location เพื่อความสะดวกในการค้นหา</li>
+                                                <li class="mb-2">ดูแลความเรียบร้อยและความปลอดภัยภายในพื้นที่สโตร์กลาง</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= หน้าที่ 4: สมุดโทรศัพท์ติดต่อภายใน ================= -->
+            <div class="tab-pane fade" id="page4" role="tabpanel" aria-labelledby="page4-tab">
+                <div class="page-content">
+                    <div class="border-bottom pb-3 mb-4">
+                        <h4 class="fw-bold text-dark mb-0"><i class="fa-solid fa-phone-volume me-2 text-success"></i>สมุดโทรศัพท์และช่องทางติดต่อภายใน</h4>
+                        <p class="text-muted small mb-0">หมายเลขเบอร์โทรศัพท์ภายในสายงานฝ่ายวิศวกรรมเพื่อการประสานงานเร่งด่วน</p>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover align-middle">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th style="width: 10%;" class="text-center">ลำดับ</th>
+                                    <th style="width: 45%;">ชื่อแผนก / กลุ่มงาน</th>
+                                    <th style="width: 45%;"><i class="fa-solid fa-phone me-2"></i>เบอร์โทรศัพท์ภายใน</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td class="text-center">1</td><td class="fw-bold">ผู้บริหารฝ่ายวิศวกรรม</td><td><span class="badge bg-success px-3 py-2 fs-6">056-717-244 ต่อ 5518</span></td></tr>
+                                <tr><td class="text-center">2</td><td class="fw-bold">งานช่างเทคนิค High</td><td><span class="badge bg-success px-3 py-2 fs-6">056-717-244 ต่อ 101</span></td></tr>
+                                <tr><td class="text-center">3</td><td class="fw-bold">งานช่างเทคนิค Low</td><td><span class="badge bg-success px-3 py-2 fs-6">056-717-244 ต่อ 102</span></td></tr>
+                                <tr><td class="text-center">4</td><td class="fw-bold">เครื่องทำความเย็น</td><td><span class="badge bg-success px-3 py-2 fs-6">056-717-244 ต่อ 103</span></td></tr>
+                                <tr><td class="text-center">5</td><td class="fw-bold">ช่างซ่อมบำรุง / งานเชื่อม / งานไฟฟ้า</td><td><span class="badge bg-success px-3 py-2 fs-6">056-717-244 ต่อ 104</span></td></tr>
+                                <tr><td class="text-center">6</td><td class="fw-bold">Hot oil & Boiler</td><td><span class="badge bg-success px-3 py-2 fs-6">056-717-244 ต่อ 105</span></td></tr>
+                                <tr><td class="text-center">7</td><td class="fw-bold">สโตร์กลางฝ่ายวิศวกรรม</td><td><span class="badge bg-success px-3 py-2 fs-6">056-717-244 ต่อ 106</span></td></tr>
+                                <tr><td class="text-center">8</td><td class="fw-bold">เจ้าหน้าที่อนุรักษ์พลังงาน & ธุรการ</td><td><span class="badge bg-success px-3 py-2 fs-6">056-717-244 ต่อ 107</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= หน้าที่ 5: ที่ตั้งและที่อยู่สถานประกอบการ ================= -->
+            <div class="tab-pane fade" id="page5" role="tabpanel" aria-labelledby="page5-tab">
+                <div class="page-content">
+                    <div class="border-bottom pb-3 mb-4">
+                        <h4 class="fw-bold text-dark mb-0"><i class="fa-solid fa-building me-2 text-info"></i>ข้อมูลที่ตั้งและสถานที่ประกอบการ</h4>
+                        <p class="text-muted small mb-0">ที่อยู่สถานประกอบการหลักและแผนที่การเดินทาง บริษัท โกลเด้นไลน์ บิสซิเนส จำกัด</p>
+                    </div>
+
+                    <div class="row g-4">
+                        <!-- รายละเอียดที่อยู่ -->
+                        <div class="col-lg-5">
+                            <div class="card h-100 border-0 shadow-sm location-card p-3">
+                                <div class="card-body">
+                                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-industry me-2"></i>บริษัท โกลเด้นไลน์ บิสซิเนส จำกัด</h5>
+                                    <p class="text-muted mb-4">(Golden Line Business Co., Ltd.)</p>
+                                    
+                                    <div class="mb-3 d-flex align-items-start">
+                                        <i class="fa-solid fa-location-dot text-danger fs-5 me-3 mt-1"></i>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">ที่อยู่สถานประกอบการ</h6>
+                                            <p class="text-secondary small mb-0">เลขที่ 99/9 หมู่ 4 ตำบลกันจุ อำเภอบึงสามพัน จังหวัดเพชรบูรณ์ 67160</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3 d-flex align-items-start">
+                                        <i class="fa-solid fa-clock text-warning fs-5 me-3 mt-1"></i>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">เวลาทำการฝ่ายวิศวกรรม</h6>
+                                            <p class="text-secondary small mb-0">เปิดปฏิบัติงานตลอด 24 ชั่วโมง (แบ่งการทำงานเป็น 3 กะ)</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3 d-flex align-items-start">
+                                        <i class="fa-solid fa-phone text-success fs-5 me-3 mt-1"></i>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">เบอร์โทรศัพท์กลาง</h6>
+                                            <p class="text-secondary small mb-0">056-717-244 ต่อ 5518</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- แผนที่ Google Maps -->
+                        <div class="col-lg-7">
+                            <div class="card h-100 border-0 shadow-sm p-2">
+                                <div class="card-body p-0" style="min-height: 350px;">
+                                    <iframe 
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15383.12345!2d101.0!3d15.8!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTXCsDQ4JzAwLjAiTiAxMDEgw4DAMCcwMC4wIkU!5e0!3m2!1sth!2sth!4v1234567890" 
+                                        width="100%" 
+                                        height="100%" 
+                                        style="border:0; border-radius: 6px; min-height: 350px;" 
+                                        allowfullscreen="" 
+                                        loading="lazy">
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal ฟอร์ม สำหรับ เพิ่ม/แก้ไข ประกาศข่าวสาร -->
+    <div class="modal fade" id="newsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="newsModalTitle"><i class="fa-solid fa-bullhorn me-2"></i>เพิ่มประกาศข่าวสาร</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="newsEditId">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">ประเภทข่าวสาร</label>
+                        <select class="form-select" id="newsCategory">
+                            <option value="ประกาศด่วน">ประกาศด่วน (สีแดง)</option>
+                            <option value="กิจกรรม">กิจกรรม (สีเขียว)</option>
+                            <option value="นโยบาย">นโยบาย (สีน้ำเงิน)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">หัวข้อข่าวสาร</label>
+                        <input type="text" class="form-control" id="newsTitleInput" placeholder="ระบุหัวข้อประกาศ...">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">รายละเอียดประกาศ</label>
+                        <textarea class="form-control" id="newsDescInput" rows="4" placeholder="ระบุรายละเอียด..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                    <button type="button" class="btn btn-success px-4" onclick="saveNewsData()">บันทึกข้อมูล</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript บันทึกข้อมูลข่าวสารแบบ localStorage -->
+    <script>
+        const initialNewsData = [
+            {
+                id: 1,
+                category: "ประกาศด่วน",
+                date: "2026-10-09",
+                title: "แจ้งกำหนดการซ่อมบำรุงระบบหม้อต้มแก๊ส (Boiler) ประจำสัปดาห์",
+                desc: "ทีมงานเตรียมความพร้อมตรวจสอบระบบ Hot Oil และทดสอบแรงดันน้ำร้อนสำหรับล้างไลน์ผลิต เวลา 08.00 น."
+            },
+            {
+                id: 2,
+                category: "กิจกรรม",
+                date: "2026-10-05",
+                title: "ฝึกอบรมความปลอดภัยการทำงานในที่อับอากาศ (Confined Space)",
+                desc: "ขอเชิญช่างเทคนิค High/Low และทีมงานซ่อมบำรุงเข้าร่วมอบรมความปลอดภัย ณ ห้องประชุมฝ่ายวิศวกรรม"
+            }
+        ];
+
+        let newsList = [];
+        let newsModalObj;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            newsModalObj = new bootstrap.Modal(document.getElementById('newsModal'));
+            
+            const savedNews = localStorage.getItem('engineering_news_data');
+            if (savedNews) {
+                newsList = JSON.parse(savedNews);
+            } else {
+                newsList = initialNewsData;
+                localStorage.setItem('engineering_news_data', JSON.stringify(newsList));
+            }
+
+            renderNewsList();
+        });
+
+        function renderNewsList() {
+            const container = document.getElementById('newsListContainer');
+            container.innerHTML = '';
+
+            if (newsList.length === 0) {
+                container.innerHTML = `<div class="col-12 text-center py-5 text-muted"><i class="fa-solid fa-inbox fs-1 mb-2"></i><p>ยังไม่มีรายการประกาศข่าวสาร</p></div>`;
+                return;
+            }
+
+            newsList.forEach(news => {
+                let badgeClass = 'bg-danger';
+                if (news.category === 'กิจกรรม') badgeClass = 'bg-success';
+                if (news.category === 'นโยบาย') badgeClass = 'bg-primary';
+
+                const cardHTML = `
+                    <div class="col-md-6" id="news-card-${news.id}">
+                        <div class="news-card p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge ${badgeClass} px-3 py-2">${news.category}</span>
+                                <div>
+                                    <small class="text-muted me-2"><i class="fa-regular fa-clock me-1"></i>${news.date}</small>
+                                    <button class="btn btn-sm btn-outline-primary border-0 py-0 px-1" onclick="openEditNewsModal(${news.id})" title="แก้ไข"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button class="btn btn-sm btn-outline-danger border-0 py-0 px-1" onclick="deleteNewsData(${news.id})" title="ลบ"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <h5 class="fw-bold text-dark mb-2">${news.title}</h5>
+                            <p class="text-secondary small mb-0">${news.desc}</p>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', cardHTML);
+            });
+        }
+
+        function openAddNewsModal() {
+            document.getElementById('newsModalTitle').innerHTML = '<i class="fa-solid fa-bullhorn me-2"></i>เพิ่มประกาศข่าวสาร';
+            document.getElementById('newsEditId').value = '';
+            document.getElementById('newsCategory').value = 'ประกาศด่วน';
+            document.getElementById('newsTitleInput').value = '';
+            document.getElementById('newsDescInput').value = '';
+            newsModalObj.show();
+        }
+
+        function openEditNewsModal(id) {
+            const news = newsList.find(item => item.id === id);
+            if (!news) return;
+
+            document.getElementById('newsModalTitle').innerHTML = '<i class="fa-solid fa-pen-to-square me-2"></i>แก้ไขประกาศข่าวสาร';
+            document.getElementById('newsEditId').value = news.id;
+            document.getElementById('newsCategory').value = news.category;
+            document.getElementById('newsTitleInput').value = news.title;
+            document.getElementById('newsDescInput').value = news.desc;
+
+            newsModalObj.show();
+        }
+
+        function saveNewsData() {
+            const editId = document.getElementById('newsEditId').value;
+            const category = document.getElementById('newsCategory').value;
+            const title = document.getElementById('newsTitleInput').value.trim();
+            const desc = document.getElementById('newsDescInput').value.trim();
+
+            if (!title || !desc) {
+                alert('กรุณากรอกหัวข้อและรายละเอียดประกาศข่าวสารให้ครบถ้วน');
+                return;
+            }
+
+            const today = new Date().toISOString().split('T')[0];
+
+            if (editId) {
+                const index = newsList.findIndex(item => item.id == editId);
+                if (index !== -1) {
+                    newsList[index].category = category;
+                    newsList[index].title = title;
+                    newsList[index].desc = desc;
+                }
+            } else {
+                const newId = newsList.length > 0 ? Math.max(...newsList.map(n => n.id)) + 1 : 1;
+                newsList.unshift({
+                    id: newId,
+                    category: category,
+                    date: today,
+                    title: title,
+                    desc: desc
+                });
+            }
+
+            localStorage.setItem('engineering_news_data', JSON.stringify(newsList));
+            renderNewsList();
+            newsModalObj.hide();
+        }
+
+        function deleteNewsData(id) {
+            if (confirm('คุณแน่ใจหรือไม่ว่าต้องการลบประกาศข่าวสารรายการนี้?')) {
+                newsList = newsList.filter(item => item.id !== id);
+                localStorage.setItem('engineering_news_data', JSON.stringify(newsList));
+                renderNewsList();
+            }
+        }
+    </script>
+</body>
+</html>
